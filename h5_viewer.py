@@ -27,42 +27,35 @@ with c2:
     st.markdown("Explore, slice, plot, and export HDF5 data directly from your browser.")
 
 # ---------------------------------------------------------
-# Sidebar: File Loading
+# Sidebar: File Loading (Versão Corrigida para Web/Cloud)
 # ---------------------------------------------------------
 st.sidebar.header("1. Load File")
 
-if 'selected_file_path' not in st.session_state:
-    st.session_state['selected_file_path'] = "Simulated_FiberTest_TSB.h5"
+# Em vez de procurar um caminho no seu PC, o usuário faz o upload do arquivo
+uploaded_file = st.sidebar.file_uploader("Upload HDF5 File", type=['h5', 'hdf5'])
 
-c_path, c_btn = st.sidebar.columns([5, 1])
+if uploaded_file is not None:
+    # O Streamlit salva o arquivo temporariamente na memória/disco do servidor
+    # Precisamos salvar esse arquivo temporário para o h5py conseguir ler o caminho
+    temp_path = Path("temp_uploaded_file.h5")
+    with open(temp_path, "wb") as f:
+        f.write(uploaded_file.getbuffer())
+    
+    st.session_state['file_path'] = str(temp_path)
+    st.sidebar.success("File uploaded successfully!")
+else:
+    # Caso queira manter um arquivo padrão (ex: se ele estiver no seu GitHub)
+    default_file = "Simulated_FiberTest_TSB.h5"
+    if os.path.exists(default_file):
+        st.session_state['file_path'] = default_file
+        st.sidebar.info("Using default simulated file.")
+    else:
+        st.sidebar.warning("Please upload a .h5 file to begin.")
 
-with c_btn:
-    st.markdown("<br>", unsafe_allow_html=True)
-    if st.button("📁", help="Browse for file..."):
-        try:
-            import tkinter as tk
-            from tkinter import filedialog
-            root = tk.Tk()
-            root.wm_attributes('-topmost', 1)
-            root.withdraw()
-            chosen_path = filedialog.askopenfilename(
-                title="Select HDF5 File", 
-                filetypes=[("HDF5 Files", "*.h5 *.hdf5"), ("All Files", "*.*")]
-            )
-            root.destroy()
-            if chosen_path:
-                st.session_state['selected_file_path'] = chosen_path
-                st.rerun()
-        except Exception as e:
-            st.error(f"Explorer failed: {e}")
-
-with c_path:
-    # A caixa reflete o state e permite digitação manual
-    user_input = st.text_input("Path to .h5 File:", value=st.session_state['selected_file_path'])
-    if user_input != st.session_state['selected_file_path']:
-        st.session_state['selected_file_path'] = user_input
-
-file_path = st.session_state['selected_file_path']
+# A partir daqui, o resto do seu código usa st.session_state['file_path']
+if 'file_path' in st.session_state:
+    file_path = st.session_state['file_path']
+    # Segue a lógica do get_h5_structure...
 
 def get_h5_structure(filepath):
     """Reads the H5 file structure and returns groups, datasets, and attributes."""
