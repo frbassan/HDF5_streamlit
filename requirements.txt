@@ -1,6 +1,8 @@
 streamlit
-pandas
 h5py
-matplotlib
 numpy
+pandas
+matplotlib
 plotly
+scipy
+Pillow
