@@ -6,10 +6,10 @@ import os
 # =========================================================================
 # CONFIGURAÇÕES GERAIS DA FIBRA E ARQUIVO
 # =========================================================================
-NOME_ARQUIVO = "Simulated_FiberTest_TSB_2.h5"
+NOME_ARQUIVO = "Simulated_FiberTest_TSB_10km.h5"
 
 CONFIG = {
-    "comprimento_fibra_m": 10000.0,    # 10 km
+    "comprimento_fibra_m": 10000.0,   # 10 km
     "resolucao_amostragem_m": 0.1,    # Distância entre pontos (0.1m)
     "quantidade_medicoes": 60,        # Número de traces temporais
     "intervalo_medicao_s": 60,        # 1 minuto entre cada trace
@@ -28,17 +28,17 @@ CONFIG = {
 
 EVENTOS_TEMPERATURA = [
     # { "metro": pos, "largura": m, "amplitude": ºC, "evolucao": tipo, "param": valor }
-    {"metro": 1200, "largura": 3,  "amplitude": 80.0, "evolucao": "senoidal", "param": None},
-    {"metro": 5500, "largura": 5,  "amplitude": 45.0, "evolucao": "senoidal", "param": None},
-    {"metro": 8200, "largura": 1.5, "amplitude": 150.0, "evolucao": "pico",    "param": 40}, # Pico no minuto 40
-    {"metro": 2500, "largura": 10, "amplitude": -15.0, "evolucao": "linear",  "param": None} # Resfriamento gradual
+    {"metro": 2200, "largura": 3,  "amplitude": 80.0, "evolucao": "senoidal", "param": None},
+    {"metro": 5300, "largura": 5,  "amplitude": 45.0, "evolucao": "senoidal", "param": None},
+    {"metro": 4500, "largura": 1.5, "amplitude": 150.0, "evolucao": "pico",    "param": 40}, # Pico no minuto 40
+    {"metro": 6900, "largura": 10, "amplitude": -15.0, "evolucao": "linear",  "param": None} # Resfriamento gradual
 ]
 
 EVENTOS_STRAIN = [
     # { "metro": pos, "largura": m, "amplitude": µε, "evolucao": tipo, "param": valor }
-    {"metro": 3400, "largura": 4,  "amplitude": 1300.0,  "evolucao": "senoidal", "param": None},
-    {"metro": 6800, "largura": 8,  "amplitude": -1200.0, "evolucao": "linear",   "param": None}, # Compressão
-    {"metro": 9100, "largura": 3.5, "amplitude": 800.0,   "evolucao": "onda",     "param": 2}    # 2 ciclos de vibração
+    {"metro": 2400, "largura": 4,  "amplitude": 1300.0,  "evolucao": "senoidal", "param": None},
+    {"metro": 5800, "largura": 8,  "amplitude": -1200.0, "evolucao": "linear",   "param": None}, # Compressão
+    {"metro": 3200, "largura": 3.5, "amplitude": 800.0,   "evolucao": "onda",     "param": 2}    # 2 ciclos de vibração
 ]
 
 # =========================================================================
