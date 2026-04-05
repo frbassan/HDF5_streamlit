@@ -1,0 +1,16 @@
+# Arquivos de dados HDF5
+*.h5
+*.hdf5
+
+# Python (Ambientes virtuais e cache)
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# IDEs (VS Code / PyCharm)
+.vscode/
+.idea/
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
